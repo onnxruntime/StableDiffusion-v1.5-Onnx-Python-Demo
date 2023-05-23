@@ -9,6 +9,7 @@ import onnxruntime as ort
 import time
 from diffusers import OnnxStableDiffusionPipeline
 from packaging import version
+from pathlib import Path
 
 
 def run_inference_loop(
@@ -134,6 +135,22 @@ if __name__ == "__main__":
     if version.parse(ort.__version__) < version.parse("1.15.0"):
         print("This script requires onnxruntime-directml 1.15.0 or newer. Please 'pip install -r requirements.txt'.")
         exit(1)
+    
+    model_dir = Path(__file__).parent / "stable-diffusion-v1-5"
+    for subfile in (
+        "model_index.json",
+        "feature_extractor/preprocessor_config.json",
+        "safety_checker/model.onnx",
+        "scheduler/scheduler_config.json",
+        "text_encoder/model.onnx",
+        "tokenizer/tokenizer_config.json",
+        "unet/model.onnx",
+        "vae_decoder/model.onnx",
+    ):
+        file = model_dir / subfile
+        if not file.exists():
+            print(f"Missing file '{file}'. Make sure you have copied the Olive-optimized models correctly (see README.md).")
+            exit(1)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", default="castle surrounded by water and nature, village, volumetric lighting, detailed, photorealistic, fantasy, epic cinematic shot, mountains, 8k ultra hd", type=str)

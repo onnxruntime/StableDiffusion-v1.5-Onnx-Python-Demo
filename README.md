@@ -4,6 +4,8 @@ This Python application uses ONNX Runtime with DirectML to run an image inferenc
 
 ## Setup
 
+First, obtain the Olive-optimized models by following the [Olive Stable Diffusion Optimization tutorial](https://github.com/microsoft/Olive/tree/main/examples/directml/stable_diffusion). Once you've optimized the models, you should copy the output directory (`<olive_clone_path>/examples/directml/stable_diffusion/models/optimized/runwayml/stable-diffusion-v1-5/`) to this project directory (`<python_demo_clone_path>/stable-diffusion-v1-5/`).
+
 Ensure you have Python 3.9 or later installed on your system. You can download it from [here](https://www.python.org/downloads/). 
 
 Clone this repository and navigate to its location in your terminal.
